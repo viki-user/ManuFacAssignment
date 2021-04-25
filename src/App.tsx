@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import data from "./data.csv";
+
 import ReactECharts from "echarts-for-react";
 
+const data: any = require("./data.csv");
+
 const getData = async () => {
-  const res = await fetch(data); //using fetch() which returns a promise
-  /* getting the data from csv file --start */
-  const reader = res.body.getReader();
+  const res = await fetch(data.default); //using fetch() which returns a promise
+
+  // #region getting the data from csv file
+  const reader = res.body!.getReader();
   const result = await reader.read();
   const decoder = new TextDecoder("utf-8");
   const csv = decoder.decode(result.value);
-  /* getting the data from csv file --end */
+  //#endregion
   const table = csv.split("\n").slice(1); //splitting data on basis of new line & deleting the first row i.e labels
 
-  const temparray = []; //declare an array
+  const temparray: any[] = []; //declare an array
 
   table.forEach((row) => {
     //iterating on data to get required attributes
